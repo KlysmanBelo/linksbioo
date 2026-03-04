@@ -1,0 +1,95 @@
+h1 {
+    font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.profilephoto {
+    width: 149px;
+    height: 149px;
+    border-radius: 100px;
+}
+
+a {
+    width: 50px;
+}
+
+.icon-social {
+    width: 46px;
+    height: 46px;
+    text-decoration: none;
+}
+
+.section-parcerias {
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-parceiro {
+    width: 121px;
+    height: 121px;
+}
+
+h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+h5 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: 0;
+}
+
+.poke-nordestino {
+    display: flex;
+    align-items: center;
+    background-color: #f1e5cf;
+    width: 340px;
+    height: 134px;
+    border-radius: 20px;
+}
+
+.stats-poke {
+    padding-left: 2px;
+    margin: auto;
+    flex-direction: column;
+}
+
+.logo-parceiro {
+    width: 100px;
+    height: 100px;
+}
+
+.despojada {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    width: 340px;
+    height: 134px;
+    border-radius: 20px;
+}
+
+.stats-despojada {
+    padding-left: 2px;
+    margin: auto;
+    flex-direction: column;
+}
+
+button {
+    border-radius: 20px;
+    background-color: antiquewhite;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+}
