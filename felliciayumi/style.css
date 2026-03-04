@@ -70,12 +70,13 @@ h5 {
 .logo-parceiro {
     width: 100px;
     height: 100px;
+    padding-left: 12px;
 }
 
 .despojada {
     display: flex;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: #f3f3f3;
     width: 340px;
     height: 134px;
     border-radius: 20px;
@@ -89,7 +90,83 @@ h5 {
 
 button {
     border-radius: 20px;
-    background-color: antiquewhite;
+    background-color: #fed2b2;
     font-family: 'DM Sans', sans-serif;
     font-weight: 600;
+    border-color: rgba(0, 0, 0, 0);
+    width: 331.874px;
+    height: 61.698px;
+    font-size: 28px;
+}
+
+.title-section {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.saiba-mais {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.section-portfolio {
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.item-portfolio {
+    width: 115px;
+    height: 201px;
+    border-radius: 20px;
+    background-color: #d9d9d9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.circle-portfolio {
+    width: 67px;
+    height: 67px;
+    border-radius: 50%;
+    background-color: #838383;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.play {
+    width: 47px;
+    height: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-portfolio:hover .circle-portfolio {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
+.general {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.items-parcerias {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 22px;
+}
+
+.btns-parceria {
+    padding-top: 29px;
 }
