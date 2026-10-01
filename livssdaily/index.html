@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liv Negreiros | Link na Bio</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Space Mono & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          colors: {
+            aesthetic: {
+              bg: '#fbf3ea',
+              card: '#f4e7d9',
+              cardHover: '#ebdccb',
+              border: '#e2d0bd',
+              text: '#31231a',
+              muted: '#7a6758',
+              tagBg: '#e8d7c3'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background-color: #fbf3ea;
+      color: #31231a;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Minimalist Pill Style */
+    .pill-card {
+      background-color: #f4e7d9;
+      border: 1px solid #e2d0bd;
+      border-radius: 9999px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .pill-card:hover {
+      background-color: #ebdccb;
+      transform: translateY(-1px);
+    }
+
+    /* Interactive Logo Link Overlay */
+    .brand-avatar {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .brand-avatar .overlay-icon {
+      position: absolute;
+      inset: 0;
+      background: rgba(49, 35, 26, 0.65);
+      backdrop-filter: blur(2px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .brand-avatar:hover .overlay-icon {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body class="font-sans antialiased pb-12 pt-8 px-4 selection:bg-aesthetic-border">
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 opacity-0 pointer-events-none transform -translate-y-4">
+    <div class="bg-aesthetic-text text-amber-50 px-5 py-2.5 rounded-full shadow-lg flex items-center gap-2.5 text-xs font-mono border border-amber-900/20">
+      <i class="fa-solid fa-check text-amber-300"></i>
+      <span id="toast-message">Cupom copiado!</span>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-md mx-auto relative">
+
+    <!-- Header Section -->
+    <header class="text-center mb-6">
+      
+      <!-- Profile Picture -->
+      <div class="relative inline-block mb-3">
+        <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden mx-auto shadow-sm border-2 border-aesthetic-border bg-white">
+          <img 
+            id="profile-img"
+            src="https://i.ibb.co/8nspnWdk/Insta-Saver-livssdaily-dp-HD.jpg" 
+            alt="Liv Negreiros" 
+            class="w-full h-full object-cover object-center"
+            onerror="this.src='https://placehold.co/300x300/f4e7d9/31231a?text=Liv'"
+          />
+        </div>
+      </div>
+
+      <!-- Monospace Instagram Handle -->
+      <h1 class="text-xl md:text-2xl font-mono tracking-tight font-medium text-aesthetic-text">
+        @livnegreiros
+      </h1>
+
+      <p class="text-xs font-sans text-aesthetic-muted mt-1.5 px-6">
+        Cupom de desconto das marcas parceiras &amp; meus achadinhos favoritos ✨
+      </p>
+    </header>
+
+    <!-- Minimalist Tab Navigation -->
+    <div class="flex bg-aesthetic-card/60 p-1 rounded-full border border-aesthetic-border mb-5 text-xs font-mono">
+      <button id="tab-coupons-btn" onclick="switchTab('coupons')" class="flex-1 py-2 rounded-full transition-all duration-200 bg-aesthetic-text text-white shadow-sm font-bold">
+        🏷️ Cupons
+      </button>
+      <button id="tab-links-btn" onclick="switchTab('links')" class="flex-1 py-2 rounded-full transition-all duration-200 text-aesthetic-muted hover:text-aesthetic-text font-normal">
+        🔗 Links
+      </button>
+    </div>
+
+    <!-- Minimalist Search Bar -->
+    <div class="mb-5 relative">
+      <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-aesthetic-muted/60 text-xs"></i>
+      <input 
+        type="text" 
+        id="search-input" 
+        onkeyup="filterItems()" 
+        placeholder="buscar marca ou cupom..." 
+        class="w-full pl-9 pr-4 py-2 bg-white/70 border border-aesthetic-border rounded-full text-xs font-mono text-aesthetic-text placeholder-aesthetic-muted/50 focus:outline-none focus:ring-1 focus:ring-aesthetic-text"
+      >
+    </div>
+
+    <!-- SECTION 1: CUPONS PARCEIROS -->
+    <section id="section-coupons" class="space-y-3">
+
+      <!-- 1. OlivaFit -->
+      <div class="coupon-item pill-card px-3.5 py-3 flex items-center justify-between gap-3" data-search="olivafit liv10 fitness">
+        <a 
+          href="https://olivafit.com.br/?fbclid=PARlRTSAUpUahleHRuA2FlbQIxMABwZG9mAmZkaWQWUPaj2lwYJY1TVoFAGi6y0qkjadIRs3NydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp7pTdcDCK7zIgX6nbY1koRQgadl4rlHG2ncQTMDZVrosWsbWeYXnhPAHxuQp_aem_Ess86TprnBuu2a6PX0yViw"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-avatar w-10 h-10 rounded-full flex-shrink-0 bg-white border border-aesthetic-border overflow-hidden block"
+          title="Abrir site da OlivaFit"
+        >
+          <img src="https://i.ibb.co/TMPWzTTv/Insta-Saver-olivafit-dp-HD.jpg" alt="OlivaFit" class="w-full h-full object-cover">
+          <div class="overlay-icon">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <div class="flex-1 min-w-0 flex items-center gap-1.5 text-xs md:text-sm font-mono truncate cursor-pointer" onclick="copyCoupon('LIV10', 'OlivaFit')">
+          <span class="font-medium text-aesthetic-text truncate">OlivaFit</span>
+          <span class="text-aesthetic-muted">-</span>
+          <span class="bg-aesthetic-tagBg px-2 py-0.5 rounded text-[11px] font-bold text-aesthetic-text flex-shrink-0 flex items-center gap-1">
+            🏷️ LIV10
+          </span>
+        </div>
+
+        <button onclick="copyCoupon('LIV10', 'OlivaFit')" aria-label="Copiar cupom" class="text-aesthetic-muted hover:text-aesthetic-text p-1 flex-shrink-0">
+          <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+        </button>
+      </div>
+
+      <!-- 2. LYVV Training -->
+      <div class="coupon-item pill-card px-3.5 py-3 flex items-center justify-between gap-3" data-search="lyvv training liv10 treino">
+        <a 
+          href="https://lyvvtraining.com.br/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZnRzaAUpUdBleHRuA2FlbQIxMQBwZG9mAmZkaWQWUPZeBFYHS1Xx2agyO_TYoF_McC80DHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp8aWvOiuCD1VQ0RBc8W_SLgL3zCZQd6d3CmZjdDXp0N9gjp6JF1O1wWeawxz_aem_ysJFOTUqOm2XozgGqb-_Sg"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-avatar w-10 h-10 rounded-full flex-shrink-0 bg-white border border-aesthetic-border overflow-hidden block"
+          title="Abrir site da LYVV Training"
+        >
+          <img src="https://i.ibb.co/35hsctRv/Insta-Saver-lyvv-training-dp-HD.jpg" alt="LYVV Training" class="w-full h-full object-cover">
+          <div class="overlay-icon">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <div class="flex-1 min-w-0 flex items-center gap-1.5 text-xs md:text-sm font-mono truncate cursor-pointer" onclick="copyCoupon('LIV10', 'LYVV Training')">
+          <span class="font-medium text-aesthetic-text truncate">LYVV Training</span>
+          <span class="text-aesthetic-muted">-</span>
+          <span class="bg-aesthetic-tagBg px-2 py-0.5 rounded text-[11px] font-bold text-aesthetic-text flex-shrink-0 flex items-center gap-1">
+            🏷️ LIV10
+          </span>
+        </div>
+
+        <button onclick="copyCoupon('LIV10', 'LYVV Training')" aria-label="Copiar cupom" class="text-aesthetic-muted hover:text-aesthetic-text p-1 flex-shrink-0">
+          <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+        </button>
+      </div>
+
+      <!-- 3. Blluev -->
+      <div class="coupon-item pill-card px-3.5 py-3 flex items-center justify-between gap-3" data-search="blluev livs10 moda">
+        <a 
+          href="https://blluev.com.br/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-avatar w-10 h-10 rounded-full flex-shrink-0 bg-white border border-aesthetic-border overflow-hidden block"
+          title="Abrir site da Blluev"
+        >
+          <img src="https://i.ibb.co/PzMN1bdB/Insta-Saver-useblluev-dp-HD.jpg" alt="Blluev" class="w-full h-full object-cover">
+          <div class="overlay-icon">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <div class="flex-1 min-w-0 flex items-center gap-1.5 text-xs md:text-sm font-mono truncate cursor-pointer" onclick="copyCoupon('LIVS10', 'Blluev')">
+          <span class="font-medium text-aesthetic-text truncate">Blluev</span>
+          <span class="text-aesthetic-muted">-</span>
+          <span class="bg-aesthetic-tagBg px-2 py-0.5 rounded text-[11px] font-bold text-aesthetic-text flex-shrink-0 flex items-center gap-1">
+            🏷 LIVS10
+          </span>
+        </div>
+
+        <button onclick="copyCoupon('LIVS10', 'Blluev')" aria-label="Copiar cupom" class="text-aesthetic-muted hover:text-aesthetic-text p-1 flex-shrink-0">
+          <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+        </button>
+      </div>
+
+      <!-- 4. LifeSlim -->
+      <div class="coupon-item pill-card px-3.5 py-3 flex items-center justify-between gap-3" data-search="lifeslim livs10 suplementos saude">
+        <a 
+          href="https://uselifeslim.com.br/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZnRzaAUpUgtleHRuA2FlbQIxMQBwZG9mAmZkaWQWUPb_fN6ZqsTJQDAY_c4aOPA0oe1fvnNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp1peNssV3Fb0xacBgcoiwl5QhjCitmi45WLVx1Wc6ixf2IXg4lCmC0V9FO9z_aem_FSlbZh_l0eYVDaOPBUCV0Q"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-avatar w-10 h-10 rounded-full flex-shrink-0 bg-white border border-aesthetic-border overflow-hidden block"
+          title="Abrir site da LifeSlim"
+        >
+          <img src="https://i.ibb.co/N68cd5LX/Insta-Saver-uselifeslim-dp-HD.jpg" alt="LifeSlim" class="w-full h-full object-cover">
+          <div class="overlay-icon">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <div class="flex-1 min-w-0 flex items-center gap-1.5 text-xs md:text-sm font-mono truncate cursor-pointer" onclick="copyCoupon('LIVS10', 'LifeSlim')">
+          <span class="font-medium text-aesthetic-text truncate">LifeSlim</span>
+          <span class="text-aesthetic-muted">-</span>
+          <span class="bg-aesthetic-tagBg px-2 py-0.5 rounded text-[11px] font-bold text-aesthetic-text flex-shrink-0 flex items-center gap-1">
+            🏷️ LIVS10
+          </span>
+        </div>
+
+        <button onclick="copyCoupon('LIVS10', 'LifeSlim')" aria-label="Copiar cupom" class="text-aesthetic-muted hover:text-aesthetic-text p-1 flex-shrink-0">
+          <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+        </button>
+      </div>
+
+      <!-- 5. Yvna Alves Nutri (WhatsApp Link) -->
+      <div class="coupon-item pill-card px-3.5 py-3 flex items-center justify-between gap-3" data-search="yvna alves nutri nutricionista whatsapp consulta">
+        <a 
+          href="http://wa.me/message/PD3UM4MGCMR7E1"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-avatar w-10 h-10 rounded-full flex-shrink-0 bg-white border border-aesthetic-border overflow-hidden block"
+          title="Chamar Yvna Alves no WhatsApp"
+        >
+          <img src="https://i.ibb.co/HDZ74X0b/Insta-Saver-yvnaalves-nutri-dp-HD.jpg" alt="Yvna Alves Nutri" class="w-full h-full object-cover">
+          <div class="overlay-icon">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <a href="http://wa.me/message/PD3UM4MGCMR7E1" target="_blank" rel="noopener noreferrer" class="flex-1 min-w-0 flex items-center gap-1.5 text-xs md:text-sm font-mono truncate">
+          <span class="font-medium text-aesthetic-text truncate">Yvna Alves Nutri</span>
+          <span class="text-aesthetic-muted">-</span>
+          <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-[11px] font-bold flex-shrink-0 flex items-center gap-1">
+            💬 WhatsApp
+          </span>
+        </a>
+
+        <a href="http://wa.me/message/PD3UM4MGCMR7E1" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp" class="text-aesthetic-muted hover:text-aesthetic-text p-1 flex-shrink-0">
+          <i class="fa-solid fa-chevron-right text-xs"></i>
+        </a>
+      </div>
+
+      <!-- 6. Pizzaria AlMar -->
+      <div class="coupon-item pill-card px-3.5 py-3 flex items-center justify-between gap-3" data-search="pizzaria almar livs10 pizza restaurante">
+        <a 
+          href="https://app.cardapioweb.com/almar_pizzaria?utm_source=linktree_profile_share&fbclid=PAZnRzaAUpUm5leHRuA2FlbQIxMQBwZG9mAmZkaWQWUPZwuWKRk8rVprNdZpFsEfZsLcTev3NydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp1Ytqd5kUXv-ezrFs-0icAB01H0EIvPtjzE7ANNTsYXo-2x2wVqEbzSxMhhg_aem_vc3mVojVWYTqsXuSJRr2Ug"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-avatar w-10 h-10 rounded-full flex-shrink-0 bg-white border border-aesthetic-border overflow-hidden block"
+          title="Abrir cardápio da Pizzaria AlMar"
+        >
+          <img src="https://i.ibb.co/7dLMxPcV/Insta-Saver-pizzariaalmar-dp-HD.jpg" alt="Pizzaria AlMar" class="w-full h-full object-cover">
+          <div class="overlay-icon">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <div class="flex-1 min-w-0 flex items-center gap-1.5 text-xs md:text-sm font-mono truncate cursor-pointer" onclick="copyCoupon('LIVS10', 'Pizzaria AlMar')">
+          <span class="font-medium text-aesthetic-text truncate">Pizzaria AlMar</span>
+          <span class="text-aesthetic-muted">-</span>
+          <span class="bg-aesthetic-tagBg px-2 py-0.5 rounded text-[11px] font-bold text-aesthetic-text flex-shrink-0 flex items-center gap-1">
+            🏷️ LIVS10
+          </span>
+        </div>
+
+        <button onclick="copyCoupon('LIVS10', 'Pizzaria AlMar')" aria-label="Copiar cupom" class="text-aesthetic-muted hover:text-aesthetic-text p-1 flex-shrink-0">
+          <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+        </button>
+      </div>
+
+      <!-- 7. Zyntra -->
+      <div class="coupon-item pill-card px-3.5 py-3 flex items-center justify-between gap-3" data-search="zyntra livs15 moda fitness">
+        <a 
+          href="https://sejazyntra.com.br/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZnRzaAUpUohleHRuA2FlbQIxMQBwZG9mAmZkaWQWUPZu7Mu1zqGy6VZ3obCtQm2edughcHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABpxIIlloX0UiI9FjkE51kVeAvUX98o9bGDPIOyHgH41I1HJC9H2D2EMzozoqn_aem_0ZVlWbxuWitV2RZexRGuYA"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-avatar w-10 h-10 rounded-full flex-shrink-0 bg-white border border-aesthetic-border overflow-hidden block"
+          title="Abrir site da Zyntra"
+        >
+          <img src="https://i.ibb.co/fdwdM4Cj/Insta-Saver-sejazyntra-dp-HD.jpg" alt="Zyntra" class="w-full h-full object-cover">
+          <div class="overlay-icon">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <div class="flex-1 min-w-0 flex items-center gap-1.5 text-xs md:text-sm font-mono truncate cursor-pointer" onclick="copyCoupon('LIVS15', 'Zyntra')">
+          <span class="font-medium text-aesthetic-text truncate">Zyntra</span>
+          <span class="text-aesthetic-muted">-</span>
+          <span class="bg-aesthetic-tagBg px-2 py-0.5 rounded text-[11px] font-bold text-aesthetic-text flex-shrink-0 flex items-center gap-1">
+            🏷️ LIVS15
+          </span>
+        </div>
+
+        <button onclick="copyCoupon('LIVS15', 'Zyntra')" aria-label="Copiar cupom" class="text-aesthetic-muted hover:text-aesthetic-text p-1 flex-shrink-0">
+          <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+        </button>
+      </div>
+
+      <!-- 8. Aqua e Sun -->
+      <div class="coupon-item pill-card px-3.5 py-3 flex items-center justify-between gap-3" data-search="aqua e sun livinf010 praia biquini moda">
+        <a 
+          href="https://aquaesun.com.br/c/varejo?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZnRzaAUpVDBleHRuA2FlbQIxMQBwZG9mAmZkaWQWUPZ4aSKJCscL2Eq9q3Cs3R3hKMWKp3NydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp89mBd39tkN8oJXP5QF6aT00mHacfhmqyOTBrpbF70K-ZXMW0cRBp1vFQ1W-_aem_yJoGj4J89vZXuQOMGD_nOg"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="brand-avatar w-10 h-10 rounded-full flex-shrink-0 bg-white border border-aesthetic-border overflow-hidden block"
+          title="Abrir site da Aqua e Sun"
+        >
+          <img src="https://i.ibb.co/KxTN57t4/Insta-Saver-aquaesun-dp-HD.jpg" alt="Aqua e Sun" class="w-full h-full object-cover">
+          <div class="overlay-icon">
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </div>
+        </a>
+
+        <div class="flex-1 min-w-0 flex items-center gap-1.5 text-xs md:text-sm font-mono truncate cursor-pointer" onclick="copyCoupon('LIVINF010', 'Aqua e Sun')">
+          <span class="font-medium text-aesthetic-text truncate">Aqua e Sun</span>
+          <span class="text-aesthetic-muted">-</span>
+          <span class="bg-aesthetic-tagBg px-2 py-0.5 rounded text-[11px] font-bold text-aesthetic-text flex-shrink-0 flex items-center gap-1">
+            🏷️ LIVINF010
+          </span>
+        </div>
+
+        <button onclick="copyCoupon('LIVINF010', 'Aqua e Sun')" aria-label="Copiar cupom" class="text-aesthetic-muted hover:text-aesthetic-text p-1 flex-shrink-0">
+          <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+        </button>
+      </div>
+
+    </section>
+
+    <!-- SECTION 2: MEUS LINKS -->
+    <section id="section-links" class="space-y-3 hidden">
+
+      <!-- Link Item 1 -->
+      <a href="https://instagram.com/livnegreiros" target="_blank" rel="noopener noreferrer" class="link-item pill-card px-4 py-3.5 flex items-center justify-between gap-3 text-xs md:text-sm font-mono block text-aesthetic-text" data-search="instagram insta livnegreiros">
+        <div class="flex items-center gap-3">
+          <i class="fa-brands fa-instagram text-lg text-pink-600"></i>
+          <span class="font-medium">Instagram @livnegreiros 📸</span>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-aesthetic-muted"></i>
+      </a>
+
+      <!-- Link Item 2 -->
+      <a href="https://tiktok.com/@livnegreiros" target="_blank" rel="noopener noreferrer" class="link-item pill-card px-4 py-3.5 flex items-center justify-between gap-3 text-xs md:text-sm font-mono block text-aesthetic-text" data-search="tiktok tiktok livnegreiros">
+        <div class="flex items-center gap-3">
+          <i class="fa-brands fa-tiktok text-lg text-slate-800"></i>
+          <span class="font-medium">TikTok @livnegreiros 🎵</span>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-aesthetic-muted"></i>
+      </a>
+
+      <!-- Link Item 3 -->
+      <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="link-item pill-card px-4 py-3.5 flex items-center justify-between gap-3 text-xs md:text-sm font-mono block text-aesthetic-text" data-search="youtube canal videos vlogs">
+        <div class="flex items-center gap-3">
+          <i class="fa-brands fa-youtube text-lg text-red-600"></i>
+          <span class="font-medium">Canal no YouTube 🎥</span>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-aesthetic-muted"></i>
+      </a>
+
+      <!-- Link Item 4 -->
+      <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" class="link-item pill-card px-4 py-3.5 flex items-center justify-between gap-3 text-xs md:text-sm font-mono block text-aesthetic-text" data-search="pinterest looks inspirações">
+        <div class="flex items-center gap-3">
+          <i class="fa-brands fa-pinterest text-lg text-rose-600"></i>
+          <span class="font-medium">Mural de Inspirações Pinterest 📌</span>
+        </div>
+        <i class="fa-solid fa-arrow-up-right-from-square text-xs text-aesthetic-muted"></i>
+      </a>
+
+      <!-- Link Item 5 -->
+      <a href="mailto:contato@livnegreiros.com" class="link-item pill-card px-4 py-3.5 flex items-center justify-between gap-3 text-xs md:text-sm font-mono block text-aesthetic-text" data-search="contato email parceria">
+        <div class="flex items-center gap-3">
+          <i class="fa-regular fa-envelope text-lg text-aesthetic-text"></i>
+          <span class="font-medium">Contato Comercial / Parcerias ✉️</span>
+        </div>
+        <i class="fa-solid fa-chevron-right text-xs text-aesthetic-muted"></i>
+      </a>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-8 text-center text-[11px] font-mono text-aesthetic-muted space-y-1">
+      <p>© 2026 @livnegreiros</p>
+    </footer>
+
+  </main>
+
+  <script>
+    // Tab Switch Logic
+    function switchTab(tabName) {
+      const sectionCoupons = document.getElementById('section-coupons');
+      const sectionLinks = document.getElementById('section-links');
+      const btnCoupons = document.getElementById('tab-coupons-btn');
+      const btnLinks = document.getElementById('tab-links-btn');
+
+      const activeClasses = ['bg-aesthetic-text', 'text-white', 'shadow-sm', 'font-bold'];
+      const inactiveClasses = ['text-aesthetic-muted', 'hover:text-aesthetic-text', 'font-normal'];
+
+      if (tabName === 'coupons') {
+        sectionCoupons.classList.remove('hidden');
+        sectionLinks.classList.add('hidden');
+
+        btnCoupons.classList.add(...activeClasses);
+        btnCoupons.classList.remove(...inactiveClasses);
+
+        btnLinks.classList.remove(...activeClasses);
+        btnLinks.classList.add(...inactiveClasses);
+      } else {
+        sectionCoupons.classList.add('hidden');
+        sectionLinks.classList.remove('hidden');
+
+        btnLinks.classList.add(...activeClasses);
+        btnLinks.classList.remove(...inactiveClasses);
+
+        btnCoupons.classList.remove(...activeClasses);
+        btnCoupons.classList.add(...inactiveClasses);
+      }
+
+      filterItems();
+    }
+
+    // Copy Coupon Code to Clipboard
+    function copyCoupon(code, brand) {
+      const tempInput = document.createElement('input');
+      tempInput.value = code;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+        showToast(`Cupom "${code}" copiado!`);
+      } catch (err) {
+        showToast(`Cupom: ${code}`);
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    // Toast Notification Controller
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      
+      toastMsg.textContent = message;
+      toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+      }, 2200);
+    }
+
+    // Search Filter Logic
+    function filterItems() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      const coupons = document.querySelectorAll('.coupon-item');
+      const links = document.querySelectorAll('.link-item');
+
+      coupons.forEach(item => {
+        const searchText = item.getAttribute('data-search') || '';
+        const itemContent = item.textContent.toLowerCase();
+        if (searchText.includes(query) || itemContent.includes(query)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      links.forEach(item => {
+        const searchText = item.getAttribute('data-search') || '';
+        const itemContent = item.textContent.toLowerCase();
+        if (searchText.includes(query) || itemContent.includes(query)) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
